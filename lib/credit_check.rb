@@ -1,9 +1,8 @@
 card_number = "5541808923795240"
 
 def check_card(card_number)
-
   card_number_array = card_number.split("").map(&:to_i)
-  card_number_array_sum = 0
+  
   card_number_array.each_with_index do |num, index| 
     if index % 2 == 0
       card_number_array[index] = num * 2
@@ -11,14 +10,17 @@ def check_card(card_number)
         card_number_array[index] = card_number_array[index].to_s.split("").map { |num| num.to_i }.sum
       end
     end
-    card_number_array_sum += card_number_array[index]
   end
-  if (card_number_array_sum % 10) == 0
+
+  if (card_number_array.sum % 10) == 0
     return true
   else
     return false
   end
+
 end
+
+check_card(card_number)
 
 class CreditCheck
   attr_reader :card_number, :limit
