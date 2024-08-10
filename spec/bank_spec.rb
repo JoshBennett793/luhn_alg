@@ -35,3 +35,35 @@ RSpec.describe Bank do
     expect(bank.valid_transaction?(11000, credit_check)).to be true
   end
 end
+
+RSpec.describe CreditCheck do
+  it "exists" do
+    credit_check = CreditCheck.new("5541808923795240", 15000)
+    expect(credit_check).to be_a CreditCheck
+  end
+
+  it "has a card number" do
+    credit_check = CreditCheck.new("5541808923795240", 15000)
+    expect(credit_check.card_number).to eq "5541808923795240"
+  end
+
+  it "has a limit" do
+    credit_check = CreditCheck.new("5541808923795240", 15000)
+    expect(credit_check.limit).to eq 15000
+  end
+
+  it "knows if a card is valid" do
+    credit_check = CreditCheck.new("5541808923795240", 15000)
+    expect(credit_check.is_valid?).to be true
+  end
+
+  it "knows if a card is invalid" do
+    credit_check = CreditCheck.new("5541801923795240", 15000)
+    expect(credit_check.is_valid?).to be false
+  end
+
+  it "returns the last four digits of the card number" do
+    credit_check = CreditCheck.new("5541808923795240", 15000)
+    expect(credit_check.last_four).to eq "5240"
+  end
+end
