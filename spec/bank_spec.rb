@@ -57,8 +57,18 @@ RSpec.describe CreditCheck do
     expect(credit_check.is_valid?).to be true
   end
 
+  it "knows if another card is valid" do
+    credit_check = CreditCheck.new("6011797668867828", 15000)
+    expect(credit_check.is_valid?).to be true
+  end
+
   it "knows if a card is invalid" do
     credit_check = CreditCheck.new("5541801923795240", 15000)
+    expect(credit_check.is_valid?).to be false
+  end
+
+  it "knows if another card is invalid" do
+    credit_check = CreditCheck.new("6011797668868728", 15000)
     expect(credit_check.is_valid?).to be false
   end
 

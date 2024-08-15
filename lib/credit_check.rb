@@ -1,26 +1,21 @@
 card_number = "5541808923795240"
 
 def check_card(card_number)
-  card_number_array = card_number.split("").map(&:to_i)
-  
-  card_number_array.each_with_index do |num, index| 
-    if index % 2 == 0
-      card_number_array[index] = num * 2
-      if card_number_array[index] > 9
-        card_number_array[index] = card_number_array[index].to_s.split("").map { |num| num.to_i }.sum
-      end
+  digits = card_number.chars.map(&:to_i)
+
+  checksum = digits.map.with_index do |num, index|
+    if index.even?
+      double = num * 2
+      double > 9 ? double - 9 : double
+    else
+      num
     end
-  end
+  end.sum
 
-  if (card_number_array.sum % 10) == 0
-    return true
-  else
-    return false
-  end
-
+  checksum % 10 == 0
 end
 
-check_card(card_number)
+puts check_card(card_number)
 
 class CreditCheck
   attr_reader :card_number, :limit
@@ -35,6 +30,6 @@ class CreditCheck
   end
 
   def last_four
-    return card_number[card_number.length - 4, 4]
+    return card_number[-4, 4]
   end
 end
